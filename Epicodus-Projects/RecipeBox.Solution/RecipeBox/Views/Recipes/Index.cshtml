@@ -1,0 +1,35 @@
+@using RecipeBox.Models;
+@using System.Security.Claims;
+@model IEnumerable<RecipeBox.Models.Recipe>
+
+<div class ="jumbotron">
+<h1>Recipes for @User.Identity.Name</h1>
+</div>
+<div class ="recipehome">
+@if (Model.Any())
+{
+  <h3>
+    @foreach (Recipe recipe in Model)
+    {
+      <li>@Html.ActionLink($"{recipe.Name}", "Details", new { id = recipe.RecipeId }), 
+      @for (var i=0; i < recipe.Rating; i++)
+      {
+        <span>★</span>
+      }
+      
+        </li>
+    }
+  </h3>
+} 
+else
+{
+  <h3>No recipes have been added yet!</h3>
+}
+<br>
+
+<p>@Html.ActionLink("Order by Rating", "SortByRating","Recipes", null, new { @class="button btn-info"})</p>
+
+<p>@Html.ActionLink("Add new recipe", "Create")</p>
+
+<p>@Html.ActionLink("Home", "Index", "Home")</p>
+</div>

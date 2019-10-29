@@ -1,0 +1,45 @@
+@using System.Collections.Generic;
+
+@using RecipeBox.Models
+@model RecipeBox.Models.Recipe
+<div class ="jumbotron">
+<h2>Edit</h2>
+</div>
+<h4>Edit this recipe: @Html.DisplayFor(model => model.Name)</h4>
+
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.RecipeId)
+
+    @Html.LabelFor(model => model.Name)
+    @Html.EditorFor(model => model.Name)
+    
+    <br>
+
+    @Html.LabelFor(model => model.Instructions)
+    @Html.EditorFor(model => model.Instructions)
+
+    <br>
+
+    @Html.Label("Select ingredient")
+
+    @foreach (var ingredient in Model.Ingredients)
+    {
+    <span>@Html.CheckBox("@ingredient.IngredientName", true)</span>
+    }
+    
+
+    <br>
+
+    @Html.LabelFor(model => model.Rating)
+    @Html.EditorFor(model => model.Rating)
+
+    <br>
+
+    @Html.Label("Tag")
+    @Html.DropDownList("TagId", string.Empty)<br>
+
+    <input type="submit" value="Save" />
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
